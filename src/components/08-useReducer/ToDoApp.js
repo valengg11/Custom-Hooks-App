@@ -26,8 +26,6 @@ const ToDoApp = () => {
   }, [todos]);
 
   const handleDelete = (todoId) => {
-    console.log(todoId);
-
     const action = {
       type: "delete",
       payload: todoId,
@@ -35,6 +33,14 @@ const ToDoApp = () => {
 
     dispatch(action);
   };
+
+  const handleToggle = (todoId) => {
+ 
+      dispatch({
+        type: "toggle",
+        payload: todoId,
+    });
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -66,7 +72,9 @@ const ToDoApp = () => {
           <ul className="list-group list-group-flush">
             {todos.map((todo, i) => (
               <li key={todo.id} className="list-group-item">
-                <p className="text-center">
+                <p className={todo.done && 'complete'}
+                   onClick={() => handleToggle(todo.id)}
+                >
                   {i + 1}. {todo.desc}
                 </p>
                 <button className="btn btn-danger" onClick={() => handleDelete(todo.id)}>
@@ -84,7 +92,7 @@ const ToDoApp = () => {
               type="text"
               name="description"
               className="form-control"
-              placeholder="Aprender..."
+              placeholder="Escribe tu tarea"
               autoComplete="off"
               value={description}
               onChange={handleInputChange}
