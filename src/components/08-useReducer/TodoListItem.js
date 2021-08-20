@@ -5,7 +5,7 @@ const TodoListItem = ({todo, index, handleDelete, handleToggle}) => {
     <div>
       <li key={todo.id} className="list-group-item">
         <p
-          className={todo.done && "complete"}
+          className={`${todo.done && "complete"}`}
           onClick={() => handleToggle(todo.id)}
         >
           {index + 1}. {todo.desc}
